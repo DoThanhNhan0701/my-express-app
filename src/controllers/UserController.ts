@@ -13,7 +13,6 @@ export class UserController {
    */
 
   public createUser(req: Request, res: Response): void {
-    // Logic to create a user
     res.status(201).send("User created");
   }
 
