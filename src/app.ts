@@ -1,30 +1,34 @@
-import express from 'express';
-import { setUserRoutes } from './routes/userRoutes';
-import { swaggerUi, swaggerSpec } from './swagger';
+import express from "express";
+import { setUserRoutes } from "./routes/userRoutes";
+import { swaggerUi, swaggerSpec } from "./swagger";
 
 class App {
-    public expressApp: express.Application;
+  public expressApp: express.Application;
 
-    constructor() {
-        this.expressApp = express();
-        this.initializeMiddleware();
-        this.initializeRoutes();
-    }
+  constructor() {
+    this.expressApp = express();
+    this.initializeMiddleware();
+    this.initializeRoutes();
+  }
 
-    private initializeMiddleware() {
-        this.expressApp.use(express.json());
-    }
+  private initializeMiddleware() {
+    this.expressApp.use(express.json());
+  }
 
-    private initializeRoutes() {
-        setUserRoutes(this.expressApp);
-        this.expressApp.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
-    }
+  private initializeRoutes() {
+    setUserRoutes(this.expressApp);
+    this.expressApp.use(
+      "/api-docs",
+      swaggerUi.serve,
+      swaggerUi.setup(swaggerSpec)
+    );
+  }
 
-    public start(port: number) {
-        this.expressApp.listen(port, () => {
-            console.log(`Server is running on port ${port}`);
-        });
-    }
+  public start(port: number) {
+    this.expressApp.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  }
 }
 
 const app = new App();
